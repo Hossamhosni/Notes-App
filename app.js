@@ -12,7 +12,11 @@ console.log('Command: ', command);
 console.log('Yargs', argv);
 
 if (command === 'add') {
-  notes.addNote(argv.title, argv.body);
+  if(notes.addNote(argv.title, argv.body)) {
+      console.log("Note was added Successfully");
+  } else {
+      console.log("Note was not added");
+  }
 } else if (command === 'list') {
   notes.getAll();
 } else if (command === 'read') {

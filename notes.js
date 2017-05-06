@@ -1,46 +1,44 @@
-'use strict';
+console.log('Starting notes.js');
+
 const fs = require('fs');
+
 var addNote = (title, body) => {
-    var notes = [];
-    try {
-        var data = fs.readFileSync('notes.json'); 
-        var notes = JSON.parse(data);
-    } catch (e) {
+  var notes = [];
+  var note = {
+    title,
+    body
+  };
 
-    }
-    var note = {
-        title:title,
-        body:body
-    }
+  try {
+    var notesString = fs.readFileSync('notes.json');
+    notes = JSON.parse(notesString);
+  } catch (e) {
+
+  }
+
+  var duplicateNotes = notes.filter((note) => note.title === title);
+
+  if (duplicateNotes.length === 0) {
     notes.push(note);
-    fs.writeFileSync('notes.json',JSON.stringify(notes));
-}
+    fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+  }
+};
 
-var readNote = (title) => {
-   
-}
+var getAll = () => {
+  console.log('Getting all notes');
+};
+
+var getNote = (title) => {
+  console.log('Getting note', title);
+};
 
 var removeNote = (title) => {
-    fs.readFile('notes.json',function(err,data) {
-        var json;
-        if (err) {
-            console.error(err);
-        }
-        var json = {};
-        try {
-            json = JSON.parse(data.toString());
-        }
-        catch (e) {
-            json = {};
-        }
-        delete json[title];
-        console.log(json);
-        fs.writeFile('notes.json',JSON.stringify(json));
-    });
-}
+  console.log('Removing note', title);
+};
 
 module.exports = {
-    readNote,
-    addNote,
-    removeNote
-}
+  addNote,
+  getAll,
+  getNote,
+  removeNote
+};

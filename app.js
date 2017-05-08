@@ -1,11 +1,11 @@
 "use strict";
 
-const fs = require('fs');
-const _ = require('lodash');
-const yargs = require('yargs');
+const fs = require('fs'); // require the fileSystem module
+const _ = require('lodash');// require the lodash module
+const yargs = require('yargs'); // require yargs module
 
 const notes = require('./notes.js');
-const titleOptions = {
+const titleOptions = { // a title options object
   describe:"title of note",
   demand: true,
   alias: "t"
@@ -35,7 +35,7 @@ console.log('Command: ', command);
 console.log('Yargs', argv);
 
 if (command === 'add') {
-  if(notes.addNote(argv.title, argv.body)) {
+  if(notes.addNote(argv.title, argv.body)) { // if there wasn't an error with the adding of the note 
       console.log("Note was added Successfully");
   } else {
       console.log("Note was not added");
